@@ -1,17 +1,25 @@
-function Dashboard() {
+import { Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
+
+function DashboardLayout() {
   return (
-    <div className="p-6">
+    <div className="flex">
 
-      <h1 className="text-3xl font-bold">
-        FleetDash Dashboard
-      </h1>
+      <Sidebar />
 
-      <p className="mt-4 text-gray-600">
-        Week 1 - Day 1 Setup Completed
-      </p>
+      <div className="flex-1 ml-64">
+
+        <Header />
+
+        <main className="p-6 bg-gray-100 min-h-screen">
+          <Outlet />
+        </main>
+
+      </div>
 
     </div>
   );
 }
 
-export default Dashboard;
+export default DashboardLayout;
