@@ -4,20 +4,16 @@ import Header from "./Header";
 
 function DashboardLayout() {
   return (
-    <div className="flex">
-
+    <div className="flex min-h-screen bg-gray-100">
       <Sidebar />
 
-      <div className="flex-1 ml-64">
-
+      <div className="flex flex-col flex-1 ml-64">
         <Header />
 
-        <main className="p-6 bg-gray-100 min-h-screen">
+        <main className="p-6">
           <Outlet />
         </main>
-
       </div>
-
     </div>
   );
 }

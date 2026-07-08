@@ -6,7 +6,8 @@ function Dashboard() {
         Fleet Dashboard
       </h1>
 
-      <div className="grid grid-cols-4 gap-5">
+      {/* <div className="grid grid-cols-4 gap-5"> */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
 
         <div className="bg-white rounded-xl shadow p-6">
           <h2 className="text-gray-500">Total Vehicles</h2>
