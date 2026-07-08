@@ -1,0 +1,42 @@
+[
+  {
+    "vehicleId": "TRUCK001",
+    "latitude": 23.2599,
+    "longitude": 77.4126,
+    "speed": 52,
+    "heading": 90,
+    "timestamp": "2026-07-07T09:00:00.000Z"
+  },
+  {
+    "vehicleId": "TRUCK001",
+    "latitude": 23.2605,
+    "longitude": 77.4132,
+    "speed": 54,
+    "heading": 92,
+    "timestamp": "2026-07-07T09:00:10.000Z"
+  },
+  {
+    "vehicleId": "TRUCK001",
+    "latitude": 23.2612,
+    "longitude": 77.4140,
+    "speed": 56,
+    "heading": 95,
+    "timestamp": "2026-07-07T09:00:20.000Z"
+  },
+  {
+    "vehicleId": "TRUCK002",
+    "latitude": 28.6139,
+    "longitude": 77.2090,
+    "speed": 65,
+    "heading": 180,
+    "timestamp": "2026-07-07T09:00:00.000Z"
+  },
+  {
+    "vehicleId": "TRUCK002",
+    "latitude": 28.6146,
+    "longitude": 77.2098,
+    "speed": 67,
+    "heading": 182,
+    "timestamp": "2026-07-07T09:00:10.000Z"
+  }
+]
