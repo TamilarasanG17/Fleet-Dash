@@ -1,0 +1,37 @@
+[
+  {
+    "vehicleId": "TRUCK001",
+    "vehicleNumber": "MP04AB1234",
+    "driverName": "Rahul Sharma",
+    "vehicleType": "Truck",
+    "status": "moving"
+  },
+  {
+    "vehicleId": "TRUCK002",
+    "vehicleNumber": "DL01CD5678",
+    "driverName": "Amit Verma",
+    "vehicleType": "Truck",
+    "status": "moving"
+  },
+  {
+    "vehicleId": "TRUCK003",
+    "vehicleNumber": "MH12EF9012",
+    "driverName": "Priya Singh",
+    "vehicleType": "Truck",
+    "status": "idle"
+  },
+  {
+    "vehicleId": "TRUCK004",
+    "vehicleNumber": "KA05GH3456",
+    "driverName": "Neha Patel",
+    "vehicleType": "Truck",
+    "status": "moving"
+  },
+  {
+    "vehicleId": "TRUCK005",
+    "vehicleNumber": "WB08JK7890",
+    "driverName": "Arjun Mehta",
+    "vehicleType": "Truck",
+    "status": "offline"
+  }
+]
