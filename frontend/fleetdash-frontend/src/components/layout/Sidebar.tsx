@@ -44,18 +44,22 @@ function Sidebar() {
 
       <nav className="mt-6">
 
-        {menus.map((menu) => (
-          <div
-            key={menu.name}
-            className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 cursor-pointer transition"
-          >
-            <span className="text-lg">{menu.icon}</span>
+          {menus.map((menu) => (
 
-            <span>{menu.name}</span>
-          </div>
-        ))}
+            <button
+              key={menu.name}
+              className="w-full flex items-center gap-4 px-6 py-4 hover:bg-blue-600 transition rounded-lg"
+            >
 
-      </nav>
+              <span>{menu.icon}</span>
+
+              <span>{menu.name}</span>
+
+            </button>
+
+          ))}
+
+        </nav>
 
     </aside>
   );

@@ -1,3 +1,5 @@
+import DashboardGrid from "../components/dashboard/DashboardGrid";
+
 function Dashboard() {
   return (
     <div>
@@ -5,6 +7,8 @@ function Dashboard() {
       <h1 className="text-3xl font-bold mb-6">
         Fleet Dashboard
       </h1>
+
+       <DashboardGrid />
 
       {/* <div className="grid grid-cols-4 gap-5"> */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">

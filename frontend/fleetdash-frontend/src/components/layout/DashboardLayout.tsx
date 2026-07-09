@@ -10,7 +10,7 @@ function DashboardLayout() {
       <div className="flex flex-col flex-1 ml-64">
         <Header />
 
-        <main className="p-6">
+        <main className="p-8">
           <Outlet />
         </main>
       </div>
