@@ -1,5 +1,6 @@
 import { vehicles } from "../../data/vehicles";
 
+
 function VehicleList() {
   return (
     <div className="bg-white rounded-xl shadow p-5">
