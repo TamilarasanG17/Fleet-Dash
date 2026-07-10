@@ -1,11 +1,13 @@
 /**
  * @file telemetryController.js
  * @description Controller for handling Telemetry API requests.
- * Currently, telemetry data is served from mock JSON data.
- * MongoDB integration will be implemented in Day 5.
+ * Telemetry data is fetched from MongoDB using the service layer.
  */
 
-const telemetryData = require("../sampleData/telemetryData.json");
+const {
+  getAllTelemetry: getAllTelemetryService,
+  getTelemetryByVehicleId: getTelemetryByVehicleIdService,
+} = require("../services/telemetryService");
 
 /**
  * Get all telemetry records.
@@ -13,8 +15,10 @@ const telemetryData = require("../sampleData/telemetryData.json");
  * @route GET /api/telemetry
  * @returns {Object} List of telemetry records.
  */
-const getAllTelemetry = (req, res) => {
+const getAllTelemetry = async (req, res) => {
   try {
+    const telemetryData = await getAllTelemetryService();
+
     res.status(200).json({
       success: true,
       count: telemetryData.length,
@@ -24,6 +28,7 @@ const getAllTelemetry = (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to fetch telemetry data.",
+      error: error.message,
     });
   }
 };
@@ -35,15 +40,13 @@ const getAllTelemetry = (req, res) => {
  * @param {string} vehicleId - Vehicle ID
  * @returns {Object} Telemetry records for the specified vehicle.
  */
-const getTelemetryByVehicleId = (req, res) => {
+const getTelemetryByVehicleId = async (req, res) => {
   try {
     const { vehicleId } = req.params;
 
-    const vehicleTelemetry = telemetryData.filter(
-      (record) => record.vehicleId === vehicleId
-    );
+    const telemetryData = await getTelemetryByVehicleIdService(vehicleId);
 
-    if (vehicleTelemetry.length === 0) {
+    if (!telemetryData || telemetryData.length === 0) {
       return res.status(404).json({
         success: false,
         message: "Telemetry data not found for the specified vehicle.",
@@ -52,13 +55,14 @@ const getTelemetryByVehicleId = (req, res) => {
 
     res.status(200).json({
       success: true,
-      count: vehicleTelemetry.length,
-      data: vehicleTelemetry,
+      count: telemetryData.length,
+      data: telemetryData,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: "Failed to fetch telemetry data.",
+      error: error.message,
     });
   }
 };
