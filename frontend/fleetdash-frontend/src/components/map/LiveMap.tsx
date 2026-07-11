@@ -1,7 +1,12 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { vehicles } from "../../data/vehicles";
+import useTelemetry from "../../hooks/useTelemetry";
 
 function LiveMap() {
+   const { telemetry, loading, error } = useTelemetry();
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
   return (
     <MapContainer
       center={[13.0827, 80.2707]}
@@ -13,18 +18,23 @@ function LiveMap() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {vehicles.map((vehicle) => (
-        <Marker
-          key={vehicle.id}
-          position={[vehicle.lat, vehicle.lng]}
-        >
-          <Popup>
-            <strong>{vehicle.name}</strong>
-            <br />
-            {vehicle.status}
-          </Popup>
-        </Marker>
-      ))}
+       {telemetry.map((vehicle) => {
+        const latest =
+          vehicle.telemetry[vehicle.telemetry.length - 1];
+
+        return (
+          <Marker
+            key={vehicle.vehicleId}
+            position={[latest.latitude, latest.longitude]}
+          >
+            <Popup>
+              <strong>{vehicle.vehicleId}</strong>
+              <br />
+              Speed: {latest.speed} km/h
+            </Popup>
+          </Marker>
+        );
+      })}
     </MapContainer>
   );
 }
