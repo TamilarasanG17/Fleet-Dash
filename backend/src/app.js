@@ -1,14 +1,19 @@
-/**
- * @file app.js
- * @description Express application configuration.
- */
-
 const express = require("express");
+const cors = require("cors");
 
 const vehicleRoutes = require("./routes/vehicleRoutes");
 const telemetryRoutes = require("./routes/telemetryRoutes");
 
 const app = express();
+
+// CORS Middleware
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 // Middleware
 app.use(express.json());
@@ -21,10 +26,8 @@ app.get("/", (req, res) => {
   });
 });
 
-// Vehicle APIs
+// Routes
 app.use("/api/vehicles", vehicleRoutes);
-
-// Telemetry APIs
 app.use("/api/telemetry", telemetryRoutes);
 
 module.exports = app;
