@@ -4,22 +4,14 @@ type DashboardCardProps = {
   color: string;
 };
 
-function DashboardCard({
-  title,
-  value,
-  color,
-}: DashboardCardProps) {
+function DashboardCard({ title, value, color }: DashboardCardProps) {
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+    <div className="rounded-xl bg-white p-6 shadow transition hover:-translate-y-1 hover:shadow-xl">
+      <p className="text-sm text-gray-500">{title}</p>
 
-      <h3 className="text-gray-500 text-sm">
-        {title}
-      </h3>
-
-      <h1 className={`text-4xl font-bold mt-3 ${color}`}>
+      <h2 className={`mt-3 text-4xl font-bold ${color}`}>
         {value}
-      </h1>
-
+      </h2>
     </div>
   );
 }
