@@ -1,7 +1,18 @@
 import { vehicles } from "../../data/vehicles";
+import useVehicles from "../../hooks/useVehicles";
 
 
 function VehicleList() {
+  const { vehicles, loading, error } = useVehicles();
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+  
   return (
     <div className="bg-white rounded-xl shadow p-5">
 
@@ -11,10 +22,10 @@ function VehicleList() {
 
       {vehicles.map((vehicle) => (
         <div
-          key={vehicle.id}
+          key={vehicle._id}
           className="flex justify-between border-b py-3"
         >
-          <span>{vehicle.name}</span>
+          <span>{vehicle.vehicleId}</span>
 
           <span
             className={
