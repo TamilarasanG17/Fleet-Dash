@@ -1,6 +1,7 @@
 function Header() {
   return (
     <header className="h-16 w-full bg-white shadow flex items-center justify-between px-8">
+    {/* // <header className="flex h-16 items-center justify-between border-b bg-white px-8 shadow-sm"> */}
 
       <h2 className="text-2xl font-bold">
         Fleet Telemetry Dashboard
