@@ -6,15 +6,14 @@ import VehicleList from "../components/vehicle/VehicleList";
 function Dashboard() {
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">
+      <h1 className="mb-6 text-3xl font-bold">
         Fleet Dashboard
       </h1>
 
       <DashboardGrid />
 
-       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-8">
-
-        <div className="xl:col-span-2">
+      <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2">
           <LiveMap />
         </div>
 
@@ -22,7 +21,6 @@ function Dashboard() {
           <VehicleList />
           <AlertPanel />
         </div>
-
       </div>
     </div>
   );
