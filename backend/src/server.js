@@ -5,6 +5,7 @@ const http = require("http");
 const app = require("./app");
 const connectDB = require("./config/mongo");
 const redis = require("./config/redis");
+require("./redis/subscriber");
 
 const PORT = process.env.PORT || 5000;
 
