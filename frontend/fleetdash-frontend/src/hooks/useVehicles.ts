@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import type{ Vehicle } from "../types/vehicle";
 import { getVehicles } from "../services/vehicleService";
+import { useVehicleContext } from "../context/VehicleContext";
 
 function useVehicles() {
-  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const { vehicles, setVehicles } = useVehicleContext();
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -20,7 +21,7 @@ function useVehicles() {
     };
 
     fetchVehicles();
-  }, []);
+  }, [setVehicles]);
 
   return {
     vehicles,

@@ -1,7 +1,6 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import DashboardLayout from "../components/layout/DashboardLayout";
-
 import Dashboard from "../pages/Dashboard";
 
 function AppRoutes() {
@@ -11,7 +10,14 @@ function AppRoutes() {
         <Route path="/" element={<Dashboard />} />
       </Route>
 
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route
+        path="*"
+        element={
+          <h1 className="mt-20 text-center text-3xl font-bold">
+            404 - Page Not Found
+          </h1>
+        }
+      />
     </Routes>
   );
 }
