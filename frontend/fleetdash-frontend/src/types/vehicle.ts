@@ -1,7 +1,15 @@
 export interface Vehicle {
-  _id: string;
-  vehicleId: string;
-  status: string;
-  latitude: number;
-  longitude: number;
+
+    _id:string;
+
+    vehicleId:string;
+
+    latitude:number;
+
+    longitude:number;
+
+    speed:number;
+
+    status:string;
+
 }
