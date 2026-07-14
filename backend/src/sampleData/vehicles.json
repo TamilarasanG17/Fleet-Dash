@@ -33,5 +33,40 @@
     "driverName": "Arjun Mehta",
     "vehicleType": "Truck",
     "status": "offline"
-  }
+  },
+{
+  "vehicleId": "TRUCK006",
+  "vehicleNumber": "TN01AB4321",
+  "driverName": "Karthik Raj",
+  "vehicleType": "Truck",
+  "status": "moving"
+},
+{
+  "vehicleId": "TRUCK007",
+  "vehicleNumber": "TN09CD8765",
+  "driverName": "Arun Kumar",
+  "vehicleType": "Truck",
+  "status": "idle"
+},
+{
+  "vehicleId": "TRUCK008",
+  "vehicleNumber": "TN22EF1357",
+  "driverName": "Suresh Babu",
+  "vehicleType": "Truck",
+  "status": "moving"
+},
+{
+  "vehicleId": "TRUCK009",
+  "vehicleNumber": "TN37GH2468",
+  "driverName": "Prakash Kumar",
+  "vehicleType": "Truck",
+  "status": "offline"
+},
+{
+  "vehicleId": "TRUCK010",
+  "vehicleNumber": "TN58JK9753",
+  "driverName": "Vignesh Kumar",
+  "vehicleType": "Truck",
+  "status": "moving"
+}
 ]
