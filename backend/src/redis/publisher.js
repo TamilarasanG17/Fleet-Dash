@@ -3,6 +3,8 @@ const Redis = require("ioredis");
 const publisher = new Redis({
   host: process.env.REDIS_HOST,
   port: process.env.REDIS_PORT,
+  enableReadyCheck: false,
+  maxRetriesPerRequest: null,
 });
 
 publisher.on("connect", () => {
