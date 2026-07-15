@@ -3,8 +3,13 @@ import { useEffect } from "react";
 import socket from "../socket/socket";
 import { useVehicleContext } from "../context/VehicleContext";
 
+import type { Vehicle } from "../types/vehicle";
+
 function useSocket() {
-  const { setConnected } = useVehicleContext();
+  const {
+    setConnected,
+    setVehicles,
+  } = useVehicleContext();
 
   useEffect(() => {
     socket.connect();
@@ -19,12 +24,19 @@ function useSocket() {
       console.log("Disconnected");
     });
 
+    socket.on("vehicle-update", (data: Vehicle[]) => {
+      console.log("Vehicle Update:", data);
+      setVehicles(data);
+    });
+
     return () => {
       socket.off("connect");
       socket.off("disconnect");
+      socket.off("vehicle-update");
+
       socket.disconnect();
     };
-  }, [setConnected]);
+  }, [setConnected, setVehicles]);
 
   return socket;
 }

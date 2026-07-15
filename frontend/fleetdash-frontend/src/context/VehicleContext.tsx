@@ -1,8 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useState,
-} from "react";
+import { createContext, useContext, useState } from "react";
 
 import type {
   ReactNode,
@@ -48,9 +44,7 @@ export function useVehicleContext() {
   const context = useContext(VehicleContext);
 
   if (!context) {
-    throw new Error(
-      "useVehicleContext must be inside VehicleProvider"
-    );
+    throw new Error("Vehicle Context Missing");
   }
 
   return context;
