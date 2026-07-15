@@ -38,5 +38,28 @@
     "speed": 67,
     "heading": 182,
     "timestamp": "2026-07-07T09:00:10.000Z"
+  },{
+    "vehicleId": "TRUCK003",
+    "latitude": 9.9252,
+    "longitude": 78.1198,
+    "speed": 48,
+    "heading": 45,
+    "timestamp": "2026-07-07T09:00:00.000Z"
+  },
+  {
+    "vehicleId": "TRUCK003",
+    "latitude": 9.9260,
+    "longitude": 78.1206,
+    "speed": 50,
+    "heading": 47,
+    "timestamp": "2026-07-07T09:00:10.000Z"
+  },
+  {
+    "vehicleId": "TRUCK003",
+    "latitude": 9.9268,
+    "longitude": 78.1215,
+    "speed": 53,
+    "heading": 50,
+    "timestamp": "2026-07-07T09:00:20.000Z"
   }
 ]
