@@ -25,11 +25,11 @@ function VehicleList() {
               </h3>
 
               <p className="text-sm text-gray-500">
-                Latitude: {vehicle.latitude}
+                Lat: {vehicle.latitude.toFixed(4)}
               </p>
 
               <p className="text-sm text-gray-500">
-                Longitude: {vehicle.longitude}
+                Lng: {vehicle.longitude.toFixed(4)}
               </p>
 
               <p className="text-sm text-gray-500">

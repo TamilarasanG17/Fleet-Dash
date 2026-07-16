@@ -1,6 +1,6 @@
 import AlertPanel from "../components/alert/AlertPanel";
 import DashboardGrid from "../components/dashboard/DashboardGrid";
-import LiveMap from "../components/map/LiveMap";
+import MapCard from "../components/map/MapCard";
 import VehicleList from "../components/vehicle/VehicleList";
 
 function Dashboard() {
@@ -14,7 +14,7 @@ function Dashboard() {
 
       <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-3">
         <div className="xl:col-span-2">
-          <LiveMap />
+          <MapCard />
         </div>
 
         <div className="space-y-6">
