@@ -1,5 +1,3 @@
-console.log("Subscriber file loaded");
-
 const Redis = require("ioredis");
 const { getIO } = require("../config/socket");
 
@@ -17,34 +15,27 @@ subscriber.on("connect", async () => {
     await subscriber.subscribe("telemetry");
     console.log("Subscribed to telemetry channel");
   } catch (error) {
-    console.error("Subscription Error:");
-    console.error(error);
+    console.error("Subscription Error:", error.message);
   }
 });
 
 subscriber.on("message", (channel, message) => {
-  console.log("Message event triggered");
-
   console.log(`Received message from ${channel}:`);
   console.log(message);
 
   try {
     const io = getIO();
 
-    console.log("Socket instance fetched");
-
     io.emit("telemetry-update", JSON.parse(message));
 
     console.log("Telemetry broadcasted to connected clients");
   } catch (error) {
-    console.error("Message Handler Error:");
-    console.error(error);
+    console.error("Message Handler Error:", error.message);
   }
 });
 
 subscriber.on("error", (error) => {
-  console.error("Subscriber Full Error:");
-  console.error(error);
+  console.error("Subscriber Error:", error.message);
 });
 
 module.exports = subscriber;
