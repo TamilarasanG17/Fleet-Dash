@@ -1,5 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import useTelemetry from "../../hooks/useTelemetry";
+import FitBounds from "./FitBounds";
 
 function LiveMap() {
    const { telemetry, loading, error } = useTelemetry();
@@ -9,33 +10,38 @@ function LiveMap() {
 
   return (
     <MapContainer
-      center={[13.0827, 80.2707]}
-      zoom={12}
-      className="h-[400px] rounded-xl"
-    >
-      <TileLayer
-        attribution="© OpenStreetMap"
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+  center={[13.0827, 80.2707]}
+  zoom={5}
+  className="h-[550px] w-full rounded-xl"
+>
+  <TileLayer
+    attribution="© OpenStreetMap"
+    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  />
 
-       {telemetry.map((vehicle) => {
-        const latest =
-          vehicle.telemetry[vehicle.telemetry.length - 1];
+  <FitBounds telemetry={telemetry} />
 
-        return (
-          <Marker
-            key={vehicle.vehicleId}
-            position={[latest.latitude, latest.longitude]}
-          >
-            <Popup>
-              <strong>{vehicle.vehicleId}</strong>
-              <br />
-              Speed: {latest.speed} km/h
-            </Popup>
-          </Marker>
-        );
-      })}
-    </MapContainer>
+  {telemetry.map((vehicle) => {
+    const latest =
+      vehicle.telemetry[vehicle.telemetry.length - 1];
+
+    return (
+      <Marker
+        key={vehicle.vehicleId}
+        position={[
+          latest.latitude,
+          latest.longitude,
+        ]}
+      >
+        <Popup>
+          <strong>{vehicle.vehicleId}</strong>
+          <br />
+          Speed: {latest.speed} km/h
+        </Popup>
+      </Marker>
+    );
+  })}
+</MapContainer>
   );
 }
 
