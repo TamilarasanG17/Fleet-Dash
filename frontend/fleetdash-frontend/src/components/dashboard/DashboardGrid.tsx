@@ -1,45 +1,37 @@
 import DashboardCard from "./DashboardCard";
-import useVehicles from "../../hooks/useVehicles";
+import useDashboardStats from "../../hooks/useDashboardStats";
 
 function DashboardGrid() {
-  const { vehicles } = useVehicles();
-
-  const total = vehicles.length;
-  const running = vehicles.filter(
-    (v) => v.status === "moving"
-  ).length;
-
-  const idle = vehicles.filter(
-    (v) => v.status === "idle"
-  ).length;
-
-  const offline = vehicles.filter(
-    (v) => v.status === "offline"
-  ).length;
+  const {
+    totalVehicles,
+    runningVehicles,
+    idleVehicles,
+    offlineVehicles,
+  } = useDashboardStats();
 
   return (
-    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
       <DashboardCard
         title="Total Vehicles"
-        value={total}
+        value={totalVehicles}
         color="text-blue-600"
       />
 
       <DashboardCard
         title="Running"
-        value={running}
+        value={runningVehicles}
         color="text-green-600"
       />
 
       <DashboardCard
         title="Idle"
-        value={idle}
+        value={idleVehicles}
         color="text-yellow-500"
       />
 
       <DashboardCard
         title="Offline"
-        value={offline}
+        value={offlineVehicles}
         color="text-red-600"
       />
     </div>

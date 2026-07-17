@@ -4,12 +4,16 @@ export interface Vehicle {
 
     vehicleId:string;
 
+    vehicleNumber?: string;
+  driverName?: string;
+  vehicleType?: string;
+
     latitude:number;
 
     longitude:number;
 
     speed:number;
 
-    status:string;
+    status: "moving" | "idle" | "offline";
 
 }

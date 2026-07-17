@@ -1,21 +1,28 @@
-import { alerts } from "../../data/alerts";
 
+import { useVehicleContext } from "../../context/VehicleContext";
 function AlertPanel() {
-  return (
-    <div className="bg-white rounded-xl shadow p-5">
+  const { alerts } = useVehicleContext();
 
-      <h2 className="font-bold text-xl mb-4 text-red-600">
-        Alerts
+  return (
+    <div className="rounded-xl bg-white p-5 shadow">
+      <h2 className="mb-4 text-xl font-bold text-red-600">
+        Live Alerts
       </h2>
 
-      {alerts.map((alert) => (
-        <div
-          key={alert.id}
-          className="bg-red-100 p-3 rounded-lg mb-3"
-        >
-          {alert.message}
-        </div>
-      ))}
+      {alerts.length === 0 ? (
+        <p className="text-gray-500">
+          No Active Alerts
+        </p>
+      ) : (
+        alerts.map((alert, index) => (
+          <div
+            key={index}
+            className="mb-3 rounded-lg bg-red-100 p-3"
+          >
+            {alert}
+          </div>
+        ))
+      )}
     </div>
   );
 }
