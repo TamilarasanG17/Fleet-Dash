@@ -20,15 +20,18 @@ subscriber.on("connect", async () => {
 });
 
 subscriber.on("message", (channel, message) => {
-  console.log(`Received message from ${channel}:`);
-  console.log(message);
-
   try {
+    const telemetry = JSON.parse(message);
+
+    console.log(
+      `Received telemetry for ${telemetry.vehicleId}`
+    );
+
     const io = getIO();
 
-    io.emit("telemetry-update", JSON.parse(message));
+    io.emit("telemetry-update", telemetry);
 
-    console.log("Telemetry broadcasted to connected clients");
+    console.log("Telemetry broadcasted successfully");
   } catch (error) {
     console.error("Message Handler Error:", error.message);
   }
