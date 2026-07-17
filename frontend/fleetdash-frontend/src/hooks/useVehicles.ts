@@ -3,7 +3,11 @@ import { getVehicles } from "../services/vehicleService";
 import { useVehicleContext } from "../context/VehicleContext";
 
 function useVehicles() {
-  const { vehicles, setVehicles } = useVehicleContext();
+  const {
+    vehicles,
+    setVehicles,
+    setAlerts,
+  } = useVehicleContext();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -12,7 +16,16 @@ function useVehicles() {
     const fetchVehicles = async () => {
       try {
         const data = await getVehicles();
+
         setVehicles(data);
+
+        const latestAlerts = data
+          .filter((vehicle) => vehicle.status === "offline")
+          .map(
+            (vehicle) => `${vehicle.vehicleId} is Offline`
+          );
+
+        setAlerts(latestAlerts);
       } catch {
         setError("Failed to load vehicles");
       } finally {
@@ -21,7 +34,7 @@ function useVehicles() {
     };
 
     fetchVehicles();
-  }, [setVehicles]);
+  }, [setVehicles, setAlerts]);
 
   return {
     vehicles,

@@ -9,6 +9,7 @@ function useSocket() {
   const {
     setConnected,
     setVehicles,
+    setAlerts,
   } = useVehicleContext();
 
   useEffect(() => {
@@ -24,9 +25,26 @@ function useSocket() {
       console.log("Disconnected");
     });
 
-    socket.on("vehicle-update", (data: Vehicle[]) => {
-      console.log("Vehicle Update:", data);
-      setVehicles(data);
+    socket.on("vehicle-update", (vehicles: Vehicle[]) => {
+      console.log("Vehicle Update:", vehicles);
+
+      setVehicles(vehicles);
+
+      const latestAlerts = vehicles
+        .filter(
+          (vehicle) =>
+            vehicle.speed > 80 ||
+            vehicle.status === "offline"
+        )
+        .map((vehicle) => {
+          if (vehicle.status === "offline") {
+            return `${vehicle.vehicleId} is Offline`;
+          }
+
+          return `${vehicle.vehicleId} Overspeed (${vehicle.speed} km/h)`;
+        });
+
+      setAlerts(latestAlerts);
     });
 
     return () => {
@@ -36,7 +54,7 @@ function useSocket() {
 
       socket.disconnect();
     };
-  }, [setConnected, setVehicles]);
+  }, [setConnected, setVehicles, setAlerts]);
 
   return socket;
 }
