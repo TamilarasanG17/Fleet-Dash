@@ -61,5 +61,179 @@
     "speed": 53,
     "heading": 50,
     "timestamp": "2026-07-07T09:00:20.000Z"
+  },
+  {
+    "vehicleId": "TRUCK004",
+    "latitude": 13.0827,
+    "longitude": 80.2707,
+    "speed": 58,
+    "heading": 90,
+    "timestamp": "2026-07-07T09:00:00.000Z"
+  },
+  {
+    "vehicleId": "TRUCK004",
+    "latitude": 13.0834,
+    "longitude": 80.2715,
+    "speed": 60,
+    "heading": 92,
+    "timestamp": "2026-07-07T09:00:10.000Z"
+  },
+  {
+    "vehicleId": "TRUCK004",
+    "latitude": 13.0842,
+    "longitude": 80.2723,
+    "speed": 62,
+    "heading": 95,
+    "timestamp": "2026-07-07T09:00:20.000Z"
+  },
+
+  {
+    "vehicleId": "TRUCK005",
+    "latitude": 11.0168,
+    "longitude": 76.9558,
+    "speed": 0,
+    "heading": 0,
+    "timestamp": "2026-07-07T09:00:00.000Z"
+  },
+  {
+    "vehicleId": "TRUCK005",
+    "latitude": 11.0168,
+    "longitude": 76.9558,
+    "speed": 0,
+    "heading": 0,
+    "timestamp": "2026-07-07T09:00:10.000Z"
+  },
+  {
+    "vehicleId": "TRUCK005",
+    "latitude": 11.0168,
+    "longitude": 76.9558,
+    "speed": 0,
+    "heading": 0,
+    "timestamp": "2026-07-07T09:00:20.000Z"
+  },
+
+  {
+    "vehicleId": "TRUCK006",
+    "latitude": 10.7905,
+    "longitude": 78.7047,
+    "speed": 55,
+    "heading": 45,
+    "timestamp": "2026-07-07T09:00:00.000Z"
+  },
+  {
+    "vehicleId": "TRUCK006",
+    "latitude": 10.7912,
+    "longitude": 78.7055,
+    "speed": 57,
+    "heading": 47,
+    "timestamp": "2026-07-07T09:00:10.000Z"
+  },
+  {
+    "vehicleId": "TRUCK006",
+    "latitude": 10.7920,
+    "longitude": 78.7063,
+    "speed": 60,
+    "heading": 50,
+    "timestamp": "2026-07-07T09:00:20.000Z"
+  },
+
+  {
+    "vehicleId": "TRUCK007",
+    "latitude": 12.9716,
+    "longitude": 77.5946,
+    "speed": 42,
+    "heading": 180,
+    "timestamp": "2026-07-07T09:00:00.000Z"
+  },
+  {
+    "vehicleId": "TRUCK007",
+    "latitude": 12.9722,
+    "longitude": 77.5953,
+    "speed": 45,
+    "heading": 182,
+    "timestamp": "2026-07-07T09:00:10.000Z"
+  },
+  {
+    "vehicleId": "TRUCK007",
+    "latitude": 12.9729,
+    "longitude": 77.5960,
+    "speed": 48,
+    "heading": 185,
+    "timestamp": "2026-07-07T09:00:20.000Z"
+  },
+
+  {
+    "vehicleId": "TRUCK008",
+    "latitude": 17.3850,
+    "longitude": 78.4867,
+    "speed": 66,
+    "heading": 270,
+    "timestamp": "2026-07-07T09:00:00.000Z"
+  },
+  {
+    "vehicleId": "TRUCK008",
+    "latitude": 17.3858,
+    "longitude": 78.4875,
+    "speed": 68,
+    "heading": 272,
+    "timestamp": "2026-07-07T09:00:10.000Z"
+  },
+  {
+    "vehicleId": "TRUCK008",
+    "latitude": 17.3865,
+    "longitude": 78.4883,
+    "speed": 70,
+    "heading": 275,
+    "timestamp": "2026-07-07T09:00:20.000Z"
+  },
+
+  {
+    "vehicleId": "TRUCK009",
+    "latitude": 19.0760,
+    "longitude": 72.8777,
+    "speed": 0,
+    "heading": 0,
+    "timestamp": "2026-07-07T09:00:00.000Z"
+  },
+  {
+    "vehicleId": "TRUCK009",
+    "latitude": 19.0760,
+    "longitude": 72.8777,
+    "speed": 0,
+    "heading": 0,
+    "timestamp": "2026-07-07T09:00:10.000Z"
+  },
+  {
+    "vehicleId": "TRUCK009",
+    "latitude": 19.0760,
+    "longitude": 72.8777,
+    "speed": 0,
+    "heading": 0,
+    "timestamp": "2026-07-07T09:00:20.000Z"
+  },
+
+  {
+    "vehicleId": "TRUCK010",
+    "latitude": 22.5726,
+    "longitude": 88.3639,
+    "speed": 64,
+    "heading": 135,
+    "timestamp": "2026-07-07T09:00:00.000Z"
+  },
+  {
+    "vehicleId": "TRUCK010",
+    "latitude": 22.5733,
+    "longitude": 88.3646,
+    "speed": 66,
+    "heading": 137,
+    "timestamp": "2026-07-07T09:00:10.000Z"
+  },
+  {
+    "vehicleId": "TRUCK010",
+    "latitude": 22.5740,
+    "longitude": 88.3654,
+    "speed": 68,
+    "heading": 140,
+    "timestamp": "2026-07-07T09:00:20.000Z"
   }
 ]
