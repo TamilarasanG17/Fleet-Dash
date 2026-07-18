@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import socket from "../socket/socket";
 import { useVehicleContext } from "../context/VehicleContext";
 
-import type { Vehicle } from "../types/vehicle";
+// import type { Vehicle } from "../types/vehicle";
 
 function useSocket() {
   const {
