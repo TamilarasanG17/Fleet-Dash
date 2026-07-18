@@ -21,15 +21,24 @@ subscriber.on("connect", async () => {
 
 subscriber.on("message", (channel, message) => {
   try {
-    const telemetry = JSON.parse(message);
+    const data = JSON.parse(message);
 
-    console.log(
-      `Received telemetry for ${telemetry.vehicleId}`
-    );
+    // Validate required telemetry fields
+    if (
+      !data.vehicleId ||
+      data.latitude === undefined ||
+      data.longitude === undefined ||
+      data.speed === undefined
+    ) {
+      console.warn("Invalid telemetry received. Skipping broadcast.");
+      return;
+    }
+
+    console.log(`Received telemetry for ${data.vehicleId}`);
 
     const io = getIO();
 
-    io.emit("telemetry-update", telemetry);
+    io.emit("telemetry-update", data);
 
     console.log("Telemetry broadcasted successfully");
   } catch (error) {
