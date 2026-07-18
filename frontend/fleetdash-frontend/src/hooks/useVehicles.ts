@@ -17,9 +17,19 @@ function useVehicles() {
       try {
         const data = await getVehicles();
 
-        setVehicles(data);
+        // Initialize telemetry fields
+        const vehiclesWithTelemetry = data.map((vehicle) => ({
+          ...vehicle,
+          latitude: 0,
+          longitude: 0,
+          speed: 0,
+          heading: 0,
+          timestamp: "",
+        }));
 
-        const latestAlerts = data
+        setVehicles(vehiclesWithTelemetry);
+
+        const latestAlerts = vehiclesWithTelemetry
           .filter((vehicle) => vehicle.status === "offline")
           .map(
             (vehicle) => `${vehicle.vehicleId} is Offline`
