@@ -27,7 +27,7 @@
     "vehicleId": "TRUCK002",
     "latitude": 28.6139,
     "longitude": 77.2090,
-    "speed": 65,
+    "speed": 92,
     "heading": 180,
     "timestamp": "2026-07-07T09:00:00.000Z"
   },
@@ -35,7 +35,7 @@
     "vehicleId": "TRUCK002",
     "latitude": 28.6146,
     "longitude": 77.2098,
-    "speed": 67,
+    "speed": 97,
     "heading": 182,
     "timestamp": "2026-07-07T09:00:10.000Z"
   },{
@@ -124,7 +124,7 @@
     "vehicleId": "TRUCK006",
     "latitude": 10.7912,
     "longitude": 78.7055,
-    "speed": 57,
+    "speed": 97,
     "heading": 47,
     "timestamp": "2026-07-07T09:00:10.000Z"
   },
@@ -132,7 +132,7 @@
     "vehicleId": "TRUCK006",
     "latitude": 10.7920,
     "longitude": 78.7063,
-    "speed": 60,
+    "speed": 99,
     "heading": 50,
     "timestamp": "2026-07-07T09:00:20.000Z"
   },
