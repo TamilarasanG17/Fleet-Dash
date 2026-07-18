@@ -16,7 +16,13 @@ interface VehicleContextType {
   setConnected: Dispatch<SetStateAction<boolean>>;
 
   alerts: string[];
-  setAlerts: React.Dispatch<React.SetStateAction<string[]>>;
+  setAlerts: Dispatch<SetStateAction<string[]>>;
+
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+
+  error: string | null;
+  setError: Dispatch<SetStateAction<string | null>>;
 }
 
 const VehicleContext = createContext<VehicleContextType | null>(null);
@@ -30,15 +36,26 @@ export function VehicleProvider({
   const [connected, setConnected] = useState(false);
   const [alerts, setAlerts] = useState<string[]>([]);
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   return (
     <VehicleContext.Provider
       value={{
         vehicles,
         setVehicles,
+
         connected,
         setConnected,
+
         alerts,
         setAlerts,
+
+        loading,
+        setLoading,
+
+        error,
+        setError,
       }}
     >
       {children}

@@ -10,6 +10,8 @@ function useSocket() {
     setConnected,
     setVehicles,
     setAlerts,
+    setLoading,
+    setError,
   } = useVehicleContext();
 
   useEffect(() => {
@@ -17,44 +19,51 @@ function useSocket() {
 
     socket.on("connect", () => {
       setConnected(true);
+      setLoading(false);
+      setError(null);
+
       console.log("Connected");
     });
 
     socket.on("disconnect", () => {
       setConnected(false);
+
       console.log("Disconnected");
+    });
+
+    socket.on("connect_error", () => {
+      setError("Unable to connect to server");
+      setLoading(false);
+
+      console.log("Connection Error");
     });
 
     socket.on("vehicle-update", (vehicles: Vehicle[]) => {
       console.log("Vehicle Update:", vehicles);
 
       setVehicles(vehicles);
+      setLoading(false);
 
-      const latestAlerts = vehicles
+      const alerts = vehicles
         .filter(
           (vehicle) =>
             vehicle.speed > 80 ||
             vehicle.status === "offline"
         )
-        .map((vehicle) => {
-          if (vehicle.status === "offline") {
-            return `${vehicle.vehicleId} is Offline`;
-          }
+        .map((vehicle) =>
+          vehicle.status === "offline"
+            ? `${vehicle.vehicleId} Offline`
+            : `${vehicle.vehicleId} Overspeed (${vehicle.speed})`
+        );
 
-          return `${vehicle.vehicleId} Overspeed (${vehicle.speed} km/h)`;
-        });
-
-      setAlerts(latestAlerts);
+      setAlerts(alerts);
     });
 
     return () => {
-      socket.off("connect");
-      socket.off("disconnect");
-      socket.off("vehicle-update");
-
+      socket.removeAllListeners();
       socket.disconnect();
     };
-  }, [setConnected, setVehicles, setAlerts]);
+  }, []);
 
   return socket;
 }
