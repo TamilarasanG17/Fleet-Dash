@@ -1,9 +1,27 @@
 import AlertPanel from "../components/alert/AlertPanel";
+import ErrorMessage from "../components/common/ErrorMessage";
+import Loader from "../components/common/Loader";
 import DashboardGrid from "../components/dashboard/DashboardGrid";
 import MapCard from "../components/map/MapCard";
 import VehicleList from "../components/vehicle/VehicleList";
+import useVehicles from "../hooks/useVehicles";
 
 function Dashboard() {
+
+  const { loading, error} = useVehicles();
+
+  if (loading) {
+
+    return <Loader/>;
+
+  }
+
+  if (error) {
+
+    return <ErrorMessage message={error}/>;
+
+  }
+
   return (
     <div className="space-y-8">
       <h1 className="text-3xl font-bold">

@@ -1,4 +1,5 @@
 import ConnectionStatus from "../common/ConnectionStatus";
+import LastUpdated from "../common/LastUpdated";
 
 function Header() {
   return (
@@ -9,6 +10,7 @@ function Header() {
 
       <div className="flex items-center gap-6">
         <ConnectionStatus />
+        <LastUpdated />
 
         <div className="flex items-center gap-3">
           <div className="text-right">
