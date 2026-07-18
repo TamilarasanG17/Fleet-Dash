@@ -17,12 +17,14 @@ publisher.on("error", (error) => {
 
 const publishTelemetry = async (telemetryData) => {
   try {
-    await publisher.publish(
+    const subscribers = await publisher.publish(
       "telemetry",
       JSON.stringify(telemetryData)
     );
 
-    console.log("Telemetry published successfully");
+    console.log(
+      `Telemetry published successfully (${subscribers} subscriber(s))`
+    );
   } catch (error) {
     console.error("Publish Error:", error.message);
   }
