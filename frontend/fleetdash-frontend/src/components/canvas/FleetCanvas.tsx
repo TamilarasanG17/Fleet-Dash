@@ -1,11 +1,10 @@
 import { useEffect, useRef } from "react";
-import useVehicle from "../../hooks/useVehicles";
-import useAnimationFrame from "../../hooks/useAnimationFrame";
+import socket from "../../socket/socket";
+import type { Vehicle } from "../../types/vehicle";
 
 function FleetCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  const { vehicles } = useVehicle();
+  const vehiclesRef = useRef<Map<string, Vehicle>>(new Map());
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -16,109 +15,97 @@ function FleetCanvas() {
     canvas.height = 500;
   }, []);
 
-//   useAnimationFrame(() => {
-//     const canvas = canvasRef.current;
+  useEffect(() => {
+    const handleVehicleUpdate = (vehicles: Vehicle[]) => {
+      vehicles.forEach((vehicle) => {
+        vehiclesRef.current.set(vehicle.vehicleId, vehicle);
+      });
+    };
 
-//     if (!canvas) return;
+    socket.on("vehicle-update", handleVehicleUpdate);
 
-//     const ctx = canvas.getContext("2d");
+    return () => {
+      socket.off("vehicle-update", handleVehicleUpdate);
+    };
+  }, []);
 
-//     if (!ctx) return;
+  useEffect(() => {
+    let animationId: number;
 
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const draw = () => {
+      const canvas = canvasRef.current;
 
-//     vehicles.forEach((vehicle) => {
-//       const x = vehicle.longitude * 8;
-//       const y = vehicle.latitude * 8;
+      if (!canvas) return;
 
-//       ctx.beginPath();
-//       ctx.arc(x, y, 8, 0, Math.PI * 2);
+      const ctx = canvas.getContext("2d");
 
-//       ctx.fillStyle =
-//         vehicle.status === "moving"
-//           ? "#16a34a"
-//           : vehicle.status === "idle"
-//           ? "#eab308"
-//           : "#ef4444";
+      if (!ctx) return;
 
-//       ctx.fill();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-//       ctx.font = "14px Arial";
-//       ctx.fillStyle = "#111827";
-//       ctx.fillText(vehicle.vehicleId, x + 12, y);
-//     });
-//   });
+      // Background Grid
+      ctx.strokeStyle = "#e5e7eb";
 
-useAnimationFrame(() => {
-  const canvas = canvasRef.current;
+      for (let x = 0; x < canvas.width; x += 50) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+      }
 
-  if (!canvas) return;
+      for (let y = 0; y < canvas.height; y += 50) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+      }
 
-  const ctx = canvas.getContext("2d");
+      // Vehicles
+      vehiclesRef.current.forEach((vehicle) => {
+        const x = vehicle.longitude * 8;
+        const y = vehicle.latitude * 8;
 
-  if (!ctx) return;
+        ctx.beginPath();
+        ctx.arc(x, y, 8, 0, Math.PI * 2);
 
-  // Clear previous frame
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle =
+          vehicle.status === "moving"
+            ? "#22c55e"
+            : vehicle.status === "idle"
+            ? "#eab308"
+            : "#ef4444";
 
-  // ===== Draw Background Grid =====
-  for (let x = 0; x < canvas.width; x += 50) {
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, canvas.height);
-    ctx.strokeStyle = "#e5e7eb";
-    ctx.stroke();
-  }
+        ctx.fill();
 
-  for (let y = 0; y < canvas.height; y += 50) {
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(canvas.width, y);
-    ctx.strokeStyle = "#e5e7eb";
-    ctx.stroke();
-  }
+        ctx.fillStyle = "#111827";
+        ctx.font = "13px Arial";
+        ctx.fillText(vehicle.vehicleId, x + 12, y);
+      });
 
-  // ===== Draw Vehicles =====
-  vehicles.forEach((vehicle) => {
-    const x = vehicle.longitude * 8;
-    const y = vehicle.latitude * 8;
+      animationId = requestAnimationFrame(draw);
+    };
 
-    ctx.beginPath();
-    ctx.arc(x, y, 8, 0, Math.PI * 2);
+    draw();
 
-    ctx.fillStyle =
-      vehicle.status === "moving"
-        ? "#16a34a"
-        : vehicle.status === "idle"
-        ? "#eab308"
-        : "#ef4444";
-
-    ctx.fill();
-
-    ctx.font = "14px Arial";
-    ctx.fillStyle = "#111827";
-    ctx.fillText(vehicle.vehicleId, x + 12, y);
-  });
-});
+    return () => cancelAnimationFrame(animationId);
+  }, []);
 
   return (
-  <div>
-    <div className="mb-4 flex items-center justify-between">
-      <h2 className="text-xl font-bold">
-        Fleet Canvas
-      </h2>
+    <div>
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-xl font-bold">Fleet Canvas</h2>
 
-      <span className="rounded bg-blue-100 px-3 py-1 text-blue-700">
-        {vehicles.length} Vehicles
-      </span>
+        <span className="rounded bg-blue-100 px-3 py-1 text-blue-700">
+          Live Tracking
+        </span>
+      </div>
+
+      <canvas
+        ref={canvasRef}
+        className="w-full rounded-xl border bg-white shadow"
+      />
     </div>
-
-    <canvas
-      ref={canvasRef}
-      className="w-full rounded-xl border bg-white shadow"
-    />
-  </div>
-);
+  );
 }
 
 export default FleetCanvas;
