@@ -7,6 +7,7 @@ const subscriber = new Redis({
   enableReadyCheck: false,
   maxRetriesPerRequest: null,
 });
+let telemetryCount = 0;
 
 subscriber.on("connect", async () => {
   console.log("Redis Subscriber connected");
@@ -21,15 +22,27 @@ subscriber.on("connect", async () => {
 
 subscriber.on("message", (channel, message) => {
   try {
-    const telemetry = JSON.parse(message);
+    const data = JSON.parse(message);
+    telemetryCount++;
 
-    console.log(
-      `Received telemetry for ${telemetry.vehicleId}`
-    );
+console.log(`Received telemetry #${telemetryCount} for ${data.vehicleId}`);
+
+    // Validate required telemetry fields
+    if (
+      !data.vehicleId ||
+      data.latitude === undefined ||
+      data.longitude === undefined ||
+      data.speed === undefined
+    ) {
+      console.warn("Invalid telemetry received. Skipping broadcast.");
+      return;
+    }
+
+    console.log(`Received telemetry for ${data.vehicleId}`);
 
     const io = getIO();
 
-    io.emit("telemetry-update", telemetry);
+    io.emit("telemetry-update", data);
 
     console.log("Telemetry broadcasted successfully");
   } catch (error) {

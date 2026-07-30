@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const vehicleRoutes = require("./routes/vehicleRoutes");
 const telemetryRoutes = require("./routes/telemetryRoutes");
+const geofenceRoutes = require("./routes/geofenceRoutes");
 
 const app = express();
 
@@ -29,5 +30,6 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/vehicles", vehicleRoutes);
 app.use("/api/telemetry", telemetryRoutes);
+app.use("/api/geofences", geofenceRoutes);
 
 module.exports = app;
