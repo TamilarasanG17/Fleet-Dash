@@ -1,5 +1,6 @@
 const Redis = require("ioredis");
 const { getIO } = require("../config/socket");
+const { checkGeofence } = require("../utils/geofenceChecker");
 
 const subscriber = new Redis({
   host: process.env.REDIS_HOST,
@@ -26,6 +27,15 @@ subscriber.on("message", (channel, message) => {
     telemetryCount++;
 
 console.log(`Received telemetry #${telemetryCount} for ${data.vehicleId}`);
+const geofenceResult = checkGeofence(data);
+
+if (geofenceResult.inside) {
+  console.log(
+    `${data.vehicleId} is inside ${geofenceResult.geofence}`
+  );
+} else {
+  console.log(`${data.vehicleId} is outside all geofences`);
+}
 
     // Validate required telemetry fields
     if (
