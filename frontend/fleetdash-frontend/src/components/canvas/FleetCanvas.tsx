@@ -1,10 +1,24 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import socket from "../../socket/socket";
 import type { Vehicle } from "../../types/vehicle";
 
-function FleetCanvas() {
+interface GeofenceAlert {
+  vehicleId: string;
+}
+
+interface FleetCanvasProps {
+  geofenceAlerts: GeofenceAlert[];
+}
+
+function FleetCanvas({ geofenceAlerts }: FleetCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const vehiclesRef = useRef<Map<string, Vehicle>>(new Map());
+
+  // Vehicles with active geofence alerts
+  const highlightedVehicles = useMemo(
+    () => new Set(geofenceAlerts.map((alert) => alert.vehicleId)),
+    [geofenceAlerts]
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -60,26 +74,27 @@ function FleetCanvas() {
         ctx.stroke();
       }
 
-      // Vehicles
+      // Draw Vehicles
       vehiclesRef.current.forEach((vehicle) => {
         const x = vehicle.longitude * 8;
         const y = vehicle.latitude * 8;
 
         ctx.beginPath();
-        ctx.arc(x, y, 8, 0, Math.PI * 2);
+        ctx.arc(x, y, 10, 0, Math.PI * 2);
 
-        ctx.fillStyle =
-          vehicle.status === "moving"
-            ? "#22c55e"
-            : vehicle.status === "idle"
-            ? "#eab308"
-            : "#ef4444";
+        ctx.fillStyle = highlightedVehicles.has(vehicle.vehicleId)
+          ? "#3b82f6" // Blue for geofence alert
+          : vehicle.status === "moving"
+          ? "#22c55e" // Green
+          : vehicle.status === "idle"
+          ? "#eab308" // Yellow
+          : "#ef4444"; // Red
 
         ctx.fill();
 
         ctx.fillStyle = "#111827";
         ctx.font = "13px Arial";
-        ctx.fillText(vehicle.vehicleId, x + 12, y);
+        ctx.fillText(vehicle.vehicleId, x + 14, y);
       });
 
       animationId = requestAnimationFrame(draw);
@@ -88,7 +103,7 @@ function FleetCanvas() {
     draw();
 
     return () => cancelAnimationFrame(animationId);
-  }, []);
+  }, [highlightedVehicles]);
 
   return (
     <div>
