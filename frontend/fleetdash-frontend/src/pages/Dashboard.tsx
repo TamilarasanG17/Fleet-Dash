@@ -1,44 +1,94 @@
-import AlertPanel from "../components/alert/AlertPanel";
+// import AlertPanel from "../components/alert/AlertPanel";
+// import ErrorMessage from "../components/common/ErrorMessage";
+// import Loader from "../components/common/Loader";
+// import DashboardGrid from "../components/dashboard/DashboardGrid";
+// import MapCard from "../components/map/MapCard";
+// import VehicleList from "../components/vehicle/VehicleList";
+// import useVehicles from "../hooks/useVehicles";
+
+// function Dashboard() {
+
+//   const { loading, error} = useVehicles();
+
+//   if (loading) {
+
+//     return <Loader/>;
+
+//   }
+
+//   if (error) {
+
+//     return <ErrorMessage message={error}/>;
+
+//   }
+
+//   return (
+//     <div className="space-y-8">
+//       <h1 className="text-3xl font-bold">
+//         Fleet Dashboard
+//       </h1>
+
+//       <DashboardGrid />
+
+//       <div className="grid grid-cols-1 gap-6 xl:grid-cols-12">
+//         <div className="space-y-6 xl:col-span-8">
+//           <MapCard />
+
+//           <AlertPanel />
+//         </div>
+
+//         <div className="xl:col-span-4">
+//           <VehicleList />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Dashboard;
+
+
 import ErrorMessage from "../components/common/ErrorMessage";
 import Loader from "../components/common/Loader";
 import DashboardGrid from "../components/dashboard/DashboardGrid";
 import MapCard from "../components/map/MapCard";
+import FleetCanvas from "../components/canvas/FleetCanvas";
 import VehicleList from "../components/vehicle/VehicleList";
+import GeofenceAlertPanel from "../components/alert/GeofenceAlertPanel";
 import useVehicles from "../hooks/useVehicles";
+import { useVehicleContext } from "../context/VehicleContext";
 
 function Dashboard() {
-
-  const { loading, error} = useVehicles();
+  const { loading, error } = useVehicles();
+  const { geofenceAlerts } = useVehicleContext();
 
   if (loading) {
-
-    return <Loader/>;
-
+    return <Loader />;
   }
 
   if (error) {
-
-    return <ErrorMessage message={error}/>;
-
+    return <ErrorMessage message={error} />;
   }
 
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-bold">
-        Fleet Dashboard
-      </h1>
+      <h1 className="text-3xl font-bold">Fleet Dashboard</h1>
 
       <DashboardGrid />
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-12">
+        {/* Left Side */}
         <div className="space-y-6 xl:col-span-8">
           <MapCard />
-
-          <AlertPanel />
+          <FleetCanvas geofenceAlerts={geofenceAlerts} />
         </div>
 
+        {/* Right Side */}
         <div className="xl:col-span-4">
-          <VehicleList />
+          <div className="space-y-6">
+            <VehicleList />
+            <GeofenceAlertPanel />
+          </div>
         </div>
       </div>
     </div>
@@ -46,8 +96,6 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-
 
 // import DashboardGrid from "../components/dashboard/DashboardGrid";
 // import FleetCanvas from "../components/canvas/FleetCanvas";

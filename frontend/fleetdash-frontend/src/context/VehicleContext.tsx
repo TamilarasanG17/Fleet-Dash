@@ -7,6 +7,7 @@ import type {
 } from "react";
 
 import type { Vehicle } from "../types/vehicle";
+import type { GeofenceAlert } from "../types/geofence";
 
 interface VehicleContextType {
   vehicles: Vehicle[];
@@ -17,6 +18,11 @@ interface VehicleContextType {
 
   alerts: string[];
   setAlerts: Dispatch<SetStateAction<string[]>>;
+
+  geofenceAlerts: GeofenceAlert[];
+  setGeofenceAlerts: Dispatch<
+    SetStateAction<GeofenceAlert[]>
+  >;
 
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
@@ -35,6 +41,8 @@ export function VehicleProvider({
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [connected, setConnected] = useState(false);
   const [alerts, setAlerts] = useState<string[]>([]);
+  const [geofenceAlerts, setGeofenceAlerts] =
+    useState<GeofenceAlert[]>([]);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -50,6 +58,9 @@ export function VehicleProvider({
 
         alerts,
         setAlerts,
+
+        geofenceAlerts,
+        setGeofenceAlerts,
 
         loading,
         setLoading,
