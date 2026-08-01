@@ -9,6 +9,8 @@ const subscriber = new Redis({
   maxRetriesPerRequest: null,
 });
 let telemetryCount = 0;
+// Store previous geofence state
+const vehicleStates = {};
 
 subscriber.on("connect", async () => {
   console.log("Redis Subscriber connected");
@@ -36,6 +38,24 @@ if (geofenceResult.inside) {
 } else {
   console.log(`${data.vehicleId} is outside all geofences`);
 }
+// Get previous state of the vehicle
+const previousState = vehicleStates[data.vehicleId] || {
+  inside: false,
+  geofence: null,
+};
+// Detect vehicle entering a geofence
+if (!previousState.inside && geofenceResult.inside) {
+  console.log(
+    ` ${data.vehicleId} ENTERED ${geofenceResult.geofence}`
+  );
+}
+
+// Detect vehicle exiting a geofence
+if (previousState.inside && !geofenceResult.inside) {
+  console.log(
+    `${data.vehicleId} EXITED ${previousState.geofence}`
+  );
+}
 
     // Validate required telemetry fields
     if (
@@ -49,6 +69,11 @@ if (geofenceResult.inside) {
     }
 
     console.log(`Received telemetry for ${data.vehicleId}`);
+    // Update current state
+    vehicleStates[data.vehicleId] = {
+     inside: geofenceResult.inside,
+     geofence: geofenceResult.geofence,
+     };
 
     const io = getIO();
 
