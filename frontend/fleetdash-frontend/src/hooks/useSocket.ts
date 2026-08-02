@@ -188,32 +188,65 @@ function useSocket() {
     socket.on("telemetry-update", (telemetry) => {
       console.log("Telemetry:", telemetry);
 
+      // setVehicles((prev) => {
+      //   const updatedVehicles = prev.map((vehicle) =>
+      //     vehicle.vehicleId === telemetry.vehicleId
+      //       ? {
+      //           ...vehicle,
+      //           latitude: telemetry.latitude,
+      //           longitude: telemetry.longitude,
+      //           speed: telemetry.speed,
+      //           heading: telemetry.heading,
+      //           timestamp: telemetry.timestamp,
+      //         }
+      //       : vehicle
+      //   );
+
+      //   const alerts = updatedVehicles
+      //     .filter((vehicle) => vehicle.speed > 80)
+      //     .map(
+      //       (vehicle) =>
+      //         `${vehicle.vehicleId} Overspeed (${vehicle.speed} km/h)`
+      //     );
+
+      //   setAlerts(alerts);
+
+      //   return updatedVehicles;
+      // });
       setVehicles((prev) => {
-        const updatedVehicles = prev.map((vehicle) =>
-          vehicle.vehicleId === telemetry.vehicleId
-            ? {
-                ...vehicle,
-                latitude: telemetry.latitude,
-                longitude: telemetry.longitude,
-                speed: telemetry.speed,
-                heading: telemetry.heading,
-                timestamp: telemetry.timestamp,
-              }
-            : vehicle
-        );
+  const index = prev.findIndex(
+    (v) => v.vehicleId === telemetry.vehicleId
+  );
 
-        const alerts = updatedVehicles
-          .filter((vehicle) => vehicle.speed > 80)
-          .map(
-            (vehicle) =>
-              `${vehicle.vehicleId} Overspeed (${vehicle.speed} km/h)`
-          );
+  if (index === -1) {
+    return [
+      ...prev,
+      {
+        _id: telemetry.vehicleId,
+        vehicleId: telemetry.vehicleId,
+        latitude: telemetry.latitude,
+        longitude: telemetry.longitude,
+        speed: telemetry.speed,
+        heading: telemetry.heading,
+        timestamp: telemetry.timestamp,
+        status: "moving",
+      },
+    ];
+  }
 
-        setAlerts(alerts);
-
-        return updatedVehicles;
-      });
-
+  return prev.map((vehicle) =>
+    vehicle.vehicleId === telemetry.vehicleId
+      ? {
+          ...vehicle,
+          latitude: telemetry.latitude,
+          longitude: telemetry.longitude,
+          speed: telemetry.speed,
+          heading: telemetry.heading,
+          timestamp: telemetry.timestamp,
+        }
+      : vehicle
+  );
+});
       setLoading(false);
     });
 
