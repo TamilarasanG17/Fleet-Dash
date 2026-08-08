@@ -25,10 +25,11 @@ app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
     message: "FleetDash Backend Running",
+    status: "healthy",
   });
 });
 
-// Routes
+// API Routes
 app.use("/api/vehicles", vehicleRoutes);
 app.use("/api/telemetry", telemetryRoutes);
 app.use("/api/geofences", geofenceRoutes);
