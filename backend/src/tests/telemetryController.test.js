@@ -5,11 +5,9 @@ const {
 
 const telemetryService = require("../services/telemetryService");
 
-// Mock telemetry service
 jest.mock("../services/telemetryService");
 
 describe("Telemetry Controller Unit Tests", () => {
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -84,6 +82,10 @@ describe("Telemetry Controller Unit Tests", () => {
         data: expect.any(Array),
       })
     );
+
+    expect(
+      telemetryService.getTelemetryByVehicleId
+    ).toHaveBeenCalledWith("TRUCK001");
   });
 
   test("should return 404 when telemetry data is not found", async () => {
@@ -108,6 +110,10 @@ describe("Telemetry Controller Unit Tests", () => {
       success: false,
       message: "Telemetry data not found for the specified vehicle.",
     });
+
+    expect(
+      telemetryService.getTelemetryByVehicleId
+    ).toHaveBeenCalledWith("INVALID_TRUCK");
   });
 
   test("should return 500 when service throws an error", async () => {
@@ -138,5 +144,4 @@ describe("Telemetry Controller Unit Tests", () => {
       })
     );
   });
-
 });
